@@ -1,5 +1,17 @@
+
+
 .App {
   text-align: center;
+}
+
+.leaflet-container {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  left: 0px;
+  top : 0px;
+  z-index: -1;
+
 }
 
 .App-logo {

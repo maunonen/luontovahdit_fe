@@ -1,0 +1,27 @@
+ <Switch>
+            <Route exact path="/" render={() => 
+                this.props.isLogged ? 
+                (<Redirect to="/Welcome"/>) : 
+                (<LoginForm/>)
+            }/>
+             <Route exact path="/register" render={() => 
+                this.props.isLogged ? 
+                (<RegForm />) : 
+                (<Redirect to="/"/>)
+            }/>         
+            <Route exact path="/luontovahdit" render={() => 
+                this.props.isLogged ? 
+                (<Welcome/>) : 
+                (<Redirect to="/"/>)
+            }/>  
+             <Route exact path="/luontovahdit/searchbar" render={() => 
+                this.props.isLogged ? 
+                (<SearchBar/>) : 
+                (<Redirect to="/"/>)
+            }/>  
+             <Route exact path="/luontovahdit/hotspots" render={() => 
+                this.props.isLogged ? 
+                (<HotSpot/>) : 
+                (<Redirect to="/"/>)
+            }/> 
+        </Switch>
