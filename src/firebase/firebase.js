@@ -2,12 +2,12 @@
 import * as firebase from 'firebase'; 
 
 const config = {
-    apiKey: "AIzaSyAI36RY6dskbA3bIbAQyX-HwZF8EYE52fk",
-    authDomain: "luontovahdit-4d535.firebaseapp.com",
-    databaseURL: "https://luontovahdit-4d535.firebaseio.com",
-    projectId: "luontovahdit-4d535",
-    storageBucket: "luontovahdit-4d535.appspot.com",
-    messagingSenderId: "925269395595"
+    apiKey: process.env.REACT_APP_API_KEY,
+    authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+    databaseURL: process.env.REACT_APP_DATABASE_URL,
+    projectId: process.env.REACT_APP_PROJECT_ID,
+    storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+    messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID
   };
 
   firebase.initializeApp(config);
