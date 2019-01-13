@@ -13,28 +13,91 @@ const config = {
   firebase.initializeApp(config);
   
 const database = firebase.database(); 
+const googleAuthProvider = new firebase.auth.GoogleAuthProvider(); 
+
+firebase.auth().signInWithPopup(googleAuthProvider); 
+
+console.log(firebase.auth().onAuthStateChanged((user) => {
+  if (user){
+    console.log('log in '); 
+    firebase.auth().currentUser.getIdToken(true).then((idToken) => {
+      console.log('TOKEN'); 
+      console.log(idToken); 
+    })
+
+  } else {
+    console.log('log out'); 
+  }
+})); 
 
 
+
+
+/* export const firebase; 
+export const googleAuthProvider; 
+export const database;  */
+export {firebase, googleAuthProvider, database as default}; 
+
+
+
+// subscriber child removed
+
+/* database.ref('exprenses').on('child_removed', (snapshot)=> {
+  console.log('Item was removed' + snapshot.key, snapshot.val()); 
+
+})
+
+// subscriber child changed 
+
+database.ref('exprenses').on('child_changed', (snapshot) => {
+  console.log(snapshot.key, snapshot.val());
+})
+
+// subcriber child added 
+
+
+database.ref('exprenses').on('child_added', (snapshot) => {
+  console.log("ADDED" + snapshot.key, snapshot.val());
+}) */
+
+
+// how to get child data
+
+/* database.ref('exprenses').on('value', (snapshot) => {
+  const exprenses = []; 
+      snapshot.forEach((childSnapshot) => {
+        exprenses.push({
+          id : childSnapshot.key, 
+          ...childSnapshot.val()
+        })
+      })
+      console.log(exprenses); 
+}) */
+
+
+/* database.ref('exprenses')
+  .once('value')
+  .then((snapshot) => {
+      const exprenses = []; 
+      snapshot.forEach((childSnapshot) => {
+        exprenses.push({
+          id : childSnapshot.key, 
+          ...childSnapshot.val()
+        })
+      })
+
+    console.log(exprenses); 
+  }) */
+
+
+/* 
 database.ref('exprenses').push({
   description : 'Rent', 
   note : '', 
   amount : '109500', 
   createdAt : '47474744'
 })
-
-database.ref('exprenses').push({
-  description : 'Phone bill', 
-  note : '', 
-  amount : '5900', 
-  createdAt : '6356356363'
-})
-
-database.ref('exprenses').push({
-  description : 'Food', 
-  note : '', 
-  amount : '1200', 
-  createdAt : 'fnfgnfg'
-})
+ */
 
 
 

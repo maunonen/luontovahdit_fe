@@ -1,4 +1,10 @@
 
+
+//import {database, firebase, googleAuthProvider}  from '../firebase/firebase';
+import database from '../firebase/firebase' ; 
+import googleAuthProvider from '../firebase/firebase' ; 
+import firebase from '../firebase/firebase' ; 
+
 export const REGISTER_LOADING = "LOGIN_LOADING";
 export const REGISTER_FAILED = "REGISTER_FAILED";
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
@@ -7,6 +13,8 @@ export const LOGIN_FAILED = "LOGIN_FAILED";
 export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
 export const LOGOUT_FAILED = "LOGOUT_FAILED";
 export const LOGIN_LOADING = "LOGIN_LOADING";
+
+
 
 export const login = (user) => {
     return dispatch => {
@@ -17,7 +25,8 @@ export const login = (user) => {
             body: JSON.stringify(user)
         }
         dispatch(loadingLogin());
-        fetch("/login", loginObject).then((response) => {
+
+      /*   fetch("/login", loginObject).then((response) => {
             if (response.ok){
                 response.json().then((data) => {
                     dispatch(loginSuccess(data.token));
@@ -30,7 +39,17 @@ export const login = (user) => {
 
         }).catch((error) => {
             dispatch(loginFailed("Server responded with error")); 
-        })
+        }) */
+
+             
+            
+           /*  .then(()=>{
+                console.log('Loged in '); 
+            }).catch((err) => {
+                console.log('Not loged', err);
+            });  */
+
+
     }
 }
 
@@ -67,7 +86,7 @@ export const register = (user) => {
             body : JSON.stringify(user)
         }
         dispatch(registerLoading());
-        fetch("/register", registerObject).then((response) => {
+        /* fetch("/register", registerObject).then((response) => {
             if (response.ok){
                 dispatch(registerSuccess());
                 alert("Register successful");
@@ -77,8 +96,16 @@ export const register = (user) => {
             }
         }).catch((error) => {
             dispatch(registerFailed("Server not responding"));
-        })
+        }) */
 
+        database.ref('user').push(user)
+        .then((ref) => {
+            dispatch(registerSuccess()); 
+            console.log("User ${ref.key} registered ${ ref}"); 
+        })
+        .catch((e) => {
+            dispatch(registerFailed()); 
+        })
     }
 }
 
