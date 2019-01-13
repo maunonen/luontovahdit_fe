@@ -7,7 +7,7 @@ import {withRouter} from "react-router-dom";
 import {bindActionCreators} from "redux";
 import RegForm from "./regform";
 //import {loginFailed} from 'actions/loginActions';
-import './firebase/firebase'; 
+import {firebase} from './firebase/firebase'; 
 
 
 class App extends Component {
@@ -26,6 +26,15 @@ const mapStateToProps = (state) => {
   }
 
 }
+
+firebase.auth().onAuthStateChanged((user) => {
+  if (user){
+    console.log('log in '); 
+  } else {
+    console.log('log out'); 
+  }
+})
+
 
 /*
 const mapDispatchToProps = (dispatch) => {

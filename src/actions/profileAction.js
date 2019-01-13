@@ -1,4 +1,7 @@
 
+
+import database from '../firebase/firebase';  
+
 export const PROFILE_LOADING = "PROFILE_LOADING";
 export const PROFILE_UPDATE_SUCCESS = "PROFILE_UPDATE_SUCCESS";
 export const PROFILE_UPDATE_FAILED = "PROFILE_UPDATE_FAILED";
@@ -10,6 +13,8 @@ export const PROFILE_DELETE_SUCCESS = "PROFILE_DELETE_SUCCESS";
 export const PROFILE_DELETE_FAILED = "PROFILE_DELETE_FAILED";
 
 
+
+
 export const getProfile = (token) => {
     return dispatch => {
         let getObject = {
@@ -19,7 +24,7 @@ export const getProfile = (token) => {
             headers: {"Content-Type" : "application/json", "token" : token}
         }
         dispatch(profileLoading());
-        fetch("/profile/get", getObject).then(
+  /*       fetch("/profile/get", getObject).then(
             (response) => {
                 if (response.ok){
                     response.json().then((data)=>{
@@ -34,6 +39,19 @@ export const getProfile = (token) => {
             }
         ).catch((error) => {
             dispatch(profileGetFailed("Problem loading Profile " + error ))
+        }) */
+        
+
+        return database.ref('user').once('value').then((snapshot) => {
+            const users = []; 
+            snapshot.forEach((childSnapshot) => {
+                users.push({
+                    id : childSnapshot.key, 
+                    ...childSnapshot.val()
+                })
+            })
+            console.log('GET USER ' + users); 
+            dispatch(profileGetSuccess(users)); 
         })
     }
 }
@@ -59,7 +77,8 @@ export const updateProfile = (user, token) => {
         }).catch((error) => {
             dispatch(profileUpdateFailed("Server not responding " + error))
         })
-
+        
+        
 
     }
 }

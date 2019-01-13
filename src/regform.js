@@ -3,6 +3,7 @@ import {Form, Button, Label} from 'semantic-ui-react'
 //import {registerAction} from './actions/loginActions';
 import {connect} from 'react-redux';
 import {register} from './actions/loginActions'
+import { getProfile } from './actions/profileAction';
 
 class RegForm extends React.Component {
 
@@ -47,9 +48,14 @@ class RegForm extends React.Component {
         /** Should be different user and newuser or REDIRECT */
   
         this.props.dispatch(register(user));
+        //this.props.dispatch(getProfile); 
   
     }
 
+
+    getProfile = () => {
+        this.props.dispatch(getProfile); 
+    }
 
     render(){
         return(
@@ -102,9 +108,24 @@ class RegForm extends React.Component {
                 <Button onClick={this.submit}
                         name="register">Register
                 </Button>
+                <Button onClick={this.getProfile}
+                        name="getProfile">Get profile
+                </Button>
             </Form>
         )
     }
 }
 
-export default connect()(RegForm);
+const mapStateToProps = (state) => {
+
+    //console.log("MAP STATE TO PROPS" + JSON.stringify(state.profile.profile))
+
+    return {
+      /*   isLogged: state.login.isLogged,
+        token : state.login.token,
+        profile : state.profile.profile */
+        getProfile : state.profile.getProfile
+    }
+}
+export default connect(mapStateToProps)(RegForm);
+

@@ -33,7 +33,7 @@ constructor (props) {
             "password" : this.state.password
         }
 
-            this.props.dispatch(login(user));
+        this.props.dispatch(login(user));
 
     }
 
